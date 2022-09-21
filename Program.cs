@@ -11,41 +11,47 @@ namespace ProsjekOcjena
         static void Main(string[] args)
         {
             //varijable
-            int brojOcjena, ocjena;
-            double prosjek, zbrojOcjena = 0;
+            int brojOcjena = 0, ocjena;
+            double prosjek = 0, zbrojOcjena = 0;
 
             //zaglavlje aplikacije
             Console.WriteLine("##########################");
             Console.WriteLine("# Izračunavanje prosjeka #");
             Console.WriteLine("##########################");
             Console.WriteLine("Za kraj unesi nulu.");
-
-            //unos broja ocjena
-            Console.WriteLine("Unesi broj ocjena: ");
-            brojOcjena = Convert.ToInt32(Console.ReadLine());
-
-            //unos i zbroj ocjena
-            do
+  
+            try
             {
-                Console.WriteLine("Unesi ocjenu: ");
-                ocjena = Convert.ToInt32(Console.ReadLine());
+            
+                //unos i zbroj ocjena
+                do
+                {
+                    Console.WriteLine("Unesi ocjenu: ");
+                    ocjena = Convert.ToInt32(Console.ReadLine());
 
-                if (ocjena > 1 && ocjena <= 5)
-                {
-                    zbrojOcjena += ocjena;
-                }
-                else if (ocjena == 1)
-                {
-                    Console.WriteLine(" Nisi prošao razred! ");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Ocjenu koju si upisao nije u rasponu!!");
-                    break;
-                }
+                    if (ocjena <= 5 && ocjena > 1)
+                    {
+                        zbrojOcjena += ocjena;
+                        brojOcjena++;
+                    }
+                    else if(ocjena > 5 || ocjena < 1 )
+                    {
+                        Console.WriteLine("Pogrešan unos!");
+                    }
+                    if (ocjena == 1)
+                    {
+                        Console.WriteLine(" Nisi prošao razred! ");
+                        break;
+                    }
 
-            } while (ocjena != 0);
+                } while (ocjena != 0);
+
+            }
+            catch (Exception greska)
+            {
+                Console.WriteLine("Neispravan unos, pokušajte ponovo.");
+                Console.WriteLine("Opis greske: "+greska.Message);
+            }
 
             //prosjek ocjena
             prosjek = zbrojOcjena / brojOcjena;
